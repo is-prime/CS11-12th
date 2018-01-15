@@ -1,3 +1,4 @@
 ﻿  Source.cpp
+c:\users\ishan_000\desktop\c++\class11th\class11th\source.cpp(102): warning C4101: 'day': unreferenced local variable
   Class11th.vcxproj -> C:\Users\ishan_000\Desktop\c++\Class11th\Debug\Class11th.exe
   Class11th.vcxproj -> C:\Users\ishan_000\Desktop\c++\Class11th\Debug\Class11th.pdb (Partial PDB)

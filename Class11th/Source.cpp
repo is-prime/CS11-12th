@@ -1,6 +1,7 @@
 #include<iostream>
 #include<string>
 #include<stdio.h>
+#include<fstream>
 
 using namespace std;
 
@@ -9,7 +10,7 @@ int getNumDays(int, int);
 int getDayOfWeek(int, int, int);
 
 struct Month {
-	int monthNum = 1, numDays;
+	int monthNum = 1, numDays = 4;
 	string monthName = "";
 };
 
@@ -18,6 +19,8 @@ public:
 	Month month;
 	int year;
 
+	//Calendar() {} empty constructor function for now
+	
 	void display() {
 		cout << decipherMonth(month.monthNum) << "\t\t\t" << year << endl;
 		cout << "M\tT\tW\tTh\tF\tS\tSu" << endl;
@@ -50,8 +53,28 @@ public:
 		}
 			
 	}
+	
+	void createNote() {
+		int day;
 
+		cout << "\n\t\tEnter Date (DD):\t";
+		cin >> day;
+		string noteName = to_string(this->year) + string("_") + 
+			to_string(this->month.monthNum) + string("_") + to_string(day);
+
+		string note;
+		cout << "\n\t\tEnter Note (single line for now)\t";
+		cin.ignore();
+		getline(cin, note);
+
+		string location = string("./Notes/") + string(noteName) + string(".txt");
+		ofstream newNote;
+		newNote.open(location);
+		newNote << note;
+		newNote.close();
+	}
 };
+
 string decipherMonth(int m) { //get name of month from its number
 	string months[] = { "Jan","Feb","Mar","Apr","May","Jun",
 						"Jul","Aug","Sep","Oct","Nov","Dec" };
@@ -72,8 +95,11 @@ int getDayOfWeek(int y, int m, int d)	{ // using Zeller's congruence method to g
 	y -= m < 3;
 	return (y + y / 4 - y / 100 + y / 400 + t[m - 1] + d) % 7;
 } 
+
+
 int main() {
 	Calendar calendar;
+	int choice, day;
 
 	cout << "Enter Month:\t ";
 	cin >> calendar.month.monthNum;
@@ -81,9 +107,18 @@ int main() {
 	cin >> calendar.year;
 
 	calendar.display();
+
+	cout << "\n\n\tMENU:"
+		<< "\n\t\t1. Create new note"
+		<< "\n\t\t2. See existing notes\n\t\t";
+	cin >> choice;
+	if (choice == 1) {
+		calendar.createNote();
+	}
 	
 	return 0;
 }
+
 
 
 
